@@ -30,15 +30,30 @@ from base import TreeNode
 class Solution:
     def findMode(self, root: TreeNode):  # 递归处理，左右和根节点数统计和
         val_dict = dict()
-        def _find_next(p, prev_val):
+        def _find_next(p):
             if not p:
-                return 0
-            if p.val == prev_val:
-                p
+                return
+            if p.val in val_dict.keys():
+                val_dict[p.val] += 1
             else:
-                count = 1 + _find_next(p.left, p.val) + _find_next(p.right, p.val)
-
+                val_dict[p.val] = 1
+            _find_next(p.left)
+            _find_next(p.right)
+        _find_next(root)
+        # 获取字典最大值
+        result = []
+        max_value = 0
+        for key, val in val_dict.items():
+            if val > max_value:
+                max_value = val
+                result = [key]
+            elif val == max_value:
+                result.append(key)
+            else:
+                pass
+        return result
 
 so = Solution()
 
 print(so.findMode(TreeNode.create_tree([1, None, 2, 2])) == [2])
+print(so.findMode(TreeNode.create_tree([1, None, 2])) == [1, 2])
