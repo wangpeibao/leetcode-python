@@ -20,17 +20,18 @@ from base import TreeNode
 
 class Solution:
     def convertBST(self, root: TreeNode) -> TreeNode:  # 根据特性，先右节点
+        self.sum = 0
         def _get_count(p):
             if not p:
                 return 0
-            count = p.val
-            count += _get_count(p.left)
-            count += _get_count(p.right)
-            return count
-
-        def _get_result(p, before):
-            p.val += _get_count(p.right) + before
             _get_count(p.right)
+            self.sum += p.val
+            p.val = self.sum
+            _get_count(p.left)
+            return p
+
+        _get_count(root)
+        return root
 
 
 
