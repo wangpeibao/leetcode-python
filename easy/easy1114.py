@@ -15,7 +15,6 @@ public class Foo {
 请设计修改程序，以确保 second() 方法在 first() 方法之后被执行，third() 方法在 second() 方法之后被执行。
 
 
-
 示例 1:
 
 输入: [1,2,3]
